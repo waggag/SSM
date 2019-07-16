@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.waggag.mapper.UserMapper">
+
+    <!-- 定义User的resultMap-->
+    <resultMap id="userAccountMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="address" column="address"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+        <!-- 配置user对象中accounts集合的映射 -->
+        <collection property="accountList" ofType="account">
+            <id column="aid" property="id"></id>
+            <result column="uid" property="uid"></result>
+            <result column="money" property="money"></result>
+        </collection>
+    </resultMap>
+
+    <!-- 定义User的resultMap-->
+    <resultMap id="userMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="address" column="address"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+        <!-- 配置角色集合的映射 -->
+        <collection property="roleList" ofType="role">
+            <id property="roleId" column="rid"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleDesc" column="role_desc"></result>
+        </collection>
+    </resultMap>
+    <!--配置查询所有-->
+    <select id="findAll" resultMap="userAccountMap">
+        select * from user u left join account a on u.id = a.uid;
+    </select>
+
+    <select id="findRoleAll" resultMap="userMap">
+        SELECT
+            user.*,role.id AS rid,role.role_desc
+        FROM
+          USER
+          LEFT JOIN user_role
+            ON user.`id` = user_role.`UID`
+          LEFT JOIN role
+            ON role.`ID` = user_role.`RID` ;
+    </select>
+
+
+</mapper>

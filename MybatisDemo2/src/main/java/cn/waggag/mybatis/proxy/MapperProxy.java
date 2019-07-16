@@ -1,8 +1,7 @@
 package cn.waggag.mybatis.proxy;
 
-import cn.waggag.mybatis.cfg.Configuration;
-import cn.waggag.mybatis.cfg.Mapper;
 import cn.waggag.mybatis.utils.Executor;
+import cn.waggag.mybatis.cfg.Mapper;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

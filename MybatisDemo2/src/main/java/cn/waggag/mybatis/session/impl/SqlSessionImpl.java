@@ -1,9 +1,9 @@
 package cn.waggag.mybatis.session.impl;
 
-import cn.waggag.mybatis.cfg.Configuration;
 import cn.waggag.mybatis.proxy.MapperProxy;
-import cn.waggag.mybatis.session.SqlSession;
 import cn.waggag.mybatis.utils.DataUtils;
+import cn.waggag.mybatis.cfg.Configuration;
+import cn.waggag.mybatis.session.SqlSession;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;

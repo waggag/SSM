@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+     <!--   配置properties,可以在标签内部配置数据库信息也可以通过属性引用配置外部文件信息
+        resource属性，用于指定外部文件的位置，按照类路径的写法来写，必须存在类路径下-->
+<!--    <properties>-->
+<!--        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC"/>-->
+<!--        <property name="username" value="waggag"/>-->
+<!--        <property name="password" value="225514"/>-->
+<!--    </properties>-->
+    <properties resource="jdbc.properties"></properties>
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="${driver}"/>-->
+<!--                <property name="url" value="${url}"/>-->
+<!--                <property name="username" value="${username}"/>-->
+<!--                <property name="password" value="${password}"/>-->
+<!--            </dataSource>-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="cn/waggag/mapper/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>

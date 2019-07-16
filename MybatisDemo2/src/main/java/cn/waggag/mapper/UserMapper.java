@@ -1,7 +1,6 @@
 package cn.waggag.mapper;
 
 import cn.waggag.domain.User;
-import cn.waggag.mybatis.annotations.Select;
 
 import java.util.List;
 

@@ -1,12 +1,10 @@
 package cn.waggag.texst;
 
 import cn.waggag.domain.User;
-import cn.waggag.mapper.UserMapper;
 import cn.waggag.mapper.UserMapper1;
 import cn.waggag.mybatis.session.SqlSession;
 import cn.waggag.mybatis.session.SqlSessionFactory;
 import cn.waggag.mybatis.session.SqlSessionFactoryBuilder;
-import org.junit.Test;
 import cn.waggag.mybatis.io.Resources;
 
 import java.io.IOException;

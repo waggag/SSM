@@ -24,6 +24,6 @@
     <mappers>
         <!--xml配置-->
 <!--        <mapper resource="cn/waggag/mapper/UserMapper.xml"/>-->
-        <mapper class="cn.waggag.mapper.UserMapper1" ></mapper>
+        <mapper class="UserMapper1" ></mapper>
     </mappers>
 </configuration>

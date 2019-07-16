@@ -3,7 +3,6 @@ package cn.waggag.mapper;
 import cn.waggag.domain.QueryVo;
 import cn.waggag.domain.User;
 
-import javax.management.Query;
 import java.util.List;
 
 /**

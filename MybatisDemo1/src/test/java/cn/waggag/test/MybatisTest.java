@@ -1,8 +1,8 @@
 package cn.waggag.test;
 
+import cn.waggag.mapper.UserMapper1;
 import cn.waggag.mapper.UserMapper;
 import cn.waggag.domain.User;
-import cn.waggag.mapper.UserMapper1;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

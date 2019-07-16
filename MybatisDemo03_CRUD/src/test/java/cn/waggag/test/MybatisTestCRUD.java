@@ -11,7 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -42,7 +41,7 @@ public class MybatisTestCRUD {
     }
 
     @After
-    public void destory() throws IOException {
+    public void destroy() throws IOException {
         //提交事务
         sqlSession.commit();
         //6.关闭资源

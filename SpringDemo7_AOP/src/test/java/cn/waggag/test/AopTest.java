@@ -18,9 +18,13 @@ public class AopTest {
         AccountService accountService = applicationContext.getBean("accountService", AccountService.class);
         //3.执行方法
         accountService.addAccount();
-        accountService.updateAccount(1);
-        accountService.deleteAccount();
-
+        System.out.println("=====================================");
+        //1.获取容器
+        ApplicationContext applicationContext1 = new ClassPathXmlApplicationContext("bean_AopType.xml");
+        //2.获取对象
+        AccountService accountService1 = applicationContext1.getBean("accountService", AccountService.class);
+        //3.执行方法
+        accountService1.addAccount();
 
 
     }

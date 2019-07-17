@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--配置Spring的IOC-->
+    <bean id="accountService" class="cn.waggag.service.AccountServiceImpl"></bean>
+
+    <!--配置Logger类-->
+    <bean id="logger" class="cn.waggag.utils.Logger"></bean>
+
+    <!--配置AOP-->
+    <aop:config>
+        <aop:aspect ref="logger" id="mylogger">
+            <!--前置通知-->
+            <aop:before method="printLog" pointcut="execution(* cn.waggag.service.*.*(..))"></aop:before>
+            <!--后置通知-->
+            <aop:after-returning method="After" pointcut="execution(* cn.waggag.service.*.*(..))"></aop:after-returning>
+            <!--异常通知-->
+            <aop:after-throwing method="Exection" pointcut-ref="mypoint"></aop:after-throwing>
+            <!--最终通知-->
+            <aop:after method="End" pointcut-ref="mypoint"></aop:after>
+           <!-- 配置切入点表达式-->
+            <aop:pointcut id="mypoint" expression="execution(* cn.waggag.service.*.*(..))"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

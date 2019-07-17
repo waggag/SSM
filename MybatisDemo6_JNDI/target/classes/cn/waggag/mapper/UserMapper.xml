@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.waggag.mapper.UserMapper">
+<mapper namespace="UserMapper">
 
     <!--配置查询结果的列名和属性名之间的对应关系-->
-    <resultMap id="userMap" type="cn.waggag.domain.User">
+    <resultMap id="userMap" type="User">
         <!-- 配置 查询结果的列名和实体类的属性名的对应关系 -->
             <!-- 主键字段的对应 -->
             <id property="userId" column="id"></id>
@@ -17,12 +17,12 @@
     </resultMap>
 
     <!--查询找用户-->
-    <select id="findAll" resultType="cn.waggag.domain.User">
+    <select id="findAll" resultType="User">
         select * from user;
     </select>
 
     <!--添加用户-->
-    <insert id="addUser" parameterType="cn.waggag.domain.User">
+    <insert id="addUser" parameterType="User">
         <!--配置插入操作后，获取插入数据的Id-->
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Integer" order="AFTER">
             select last_insert_id();
@@ -30,7 +30,7 @@
         insert into user(username,birthday,sex,address) values(#{username},#{birthday},#{sex},#{address});
     </insert>
     <!--更新用户-->
-    <update id="updateUser" parameterType="cn.waggag.domain.User">
+    <update id="updateUser" parameterType="User">
         update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id = #{id}
     </update>
     <!--删除用户-->
@@ -39,12 +39,12 @@
     </delete>
 
     <!--根据Id查询用户信息-->
-    <select id="findUserById" parameterType="java.lang.Integer" resultType="cn.waggag.domain.User">
+    <select id="findUserById" parameterType="java.lang.Integer" resultType="User">
         select * from user where id = #{id};
     </select>
 
     <!--根据名称模糊查询用户-->
-    <select id="findByName" parameterType="java.lang.String" resultType="cn.waggag.domain.User">
+    <select id="findByName" parameterType="java.lang.String" resultType="User">
         select * from user where username like #{username};
     </select>
 

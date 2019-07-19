@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  *          作用：用于把当前类对象存入spring容器中
  *          属性：
  *              value：用于指定bean的id。当我们不写时，它的默认值是当前类名，且首字母改小写。
- *      Controller：一般用在表现层
+ *      controller：一般用在表现层
  *      Service：一般用在业务层
  *      Repository：一般用在持久层
  *      以上三个注解他们的作用和属性与Component是一模一样。

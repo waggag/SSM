@@ -10,8 +10,11 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--开启注解扫描，只扫描Controller注解-->
-    <context:component-scan base-package="cn.waggag">
+    <!--SpringMVC开启注解的支持-->
+    <mvc:annotation-driven/>
+
+    <!--配置包扫描器，扫描@Controller注解的类-->
+    <context:component-scan base-package="cn.waggag.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
@@ -21,12 +24,9 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--过滤静态资源-->
+    <!--过滤静态资源,谷歌可以正常浏览，火狐等必须配置资源映射才能访问静态资源文件-->
     <mvc:resources location="/css/" mapping="/css/**" />
     <mvc:resources location="/images/" mapping="/images/**" />
     <mvc:resources location="/js/" mapping="/js/**" />
-
-    <!--开启SpringMVC注解的支持-->
-    <mvc:annotation-driven/>
 
 </beans>

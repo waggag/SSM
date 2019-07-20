@@ -13,44 +13,66 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--开启注解扫描,希望处理service和dao,controller不需要扫描-->
+    <!--Spring的配置文件-->
+    <!--开启注解扫描,告知spring在创建容器时要扫描的包,希望处理Service和Dao,Spring不需要扫描Controller-->
     <context:component-scan base-package="cn.waggag">
         <!--配置不需要扫描的注解-->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!--spring整合Mybatis框架-->
-
+    <!--加载数据库配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
     <!--配置连接池-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC"></property>
-        <property name="user" value="waggag"></property>
-        <property name="password" value="225514"></property>
+    <bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
     </bean>
-    <!--配置sqlSessionFactory工厂-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    <!--配置SqlSessionFactory工厂-->
+    <!--让spring管理SqlSessionFactory 使用Mybatis和Spring整合包中的SqlSessionFactoryBean-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <!-- 数据库连接池 -->
+        <property name="dataSource" ref="druidDataSource"></property>
+        <!--加载Mybatis的全局配置文件,保留Mybatis的配置文件 -->
+        <property name="configLocation" value="classpath:SqlMapConfig.xml" />
     </bean>
-    <!--配置AccountDao接口所在包-->
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.waggag.dao"></property>
+    <!--配置映射文件所在位置-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.waggag.*"></property>
     </bean>
+
 
     <!--配置Spring框架的声明式事务管理-->
     <!--配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"></property>
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="druidDataSource"></property>
     </bean>
     <!--配置事务通知-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
         <tx:attributes>
-            <tx:method name="find" read-only="true"/>
-            <tx:method name="*" isolation="DEFAULT"/>
+            <!-- 传播行为,方法用这些开头，开启事务 -->
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
     </tx:advice>
     <!--配置AOP增强-->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* cn.waggag.service.*.*(..))"></aop:advisor>
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* cn.waggag.service.*.*(..))"></aop:advisor>
     </aop:config>
 </beans>

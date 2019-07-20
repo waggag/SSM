@@ -13,8 +13,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * @Company http://www.waggag.cn
  */
 public class testSpring {
-
-
     @Test
     public  void testSpring(){
         //1.加载Spring配置文件
@@ -24,6 +22,5 @@ public class testSpring {
         //3.调用方法
         accountService.findAll();
     }
-
 
 }
